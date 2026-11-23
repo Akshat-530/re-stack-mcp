@@ -1,0 +1,28 @@
+services:
+  re-stack:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: re-stack:latest
+    container_name: re-stack
+    restart: unless-stopped
+    environment:
+      - WEBSTACK_CONFIG=/data/config/config.json
+      - WEBSTACK_TIMEOUT_MS=900000
+      - HOME=/root
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "127.0.0.1:4038:4038"
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import socket; socket.create_connection(('127.0.0.1', 4038), timeout=4)"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 240s
+    volumes:
+      - ./data/re-stack:/data
+      - ./samples:/work
+      - ./samples:/opt/open-reverselab/samples
+      # - "C:\\:/host/c"
+      # - "D:\\:/host/d"

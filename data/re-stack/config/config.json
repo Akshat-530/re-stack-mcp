@@ -1,0 +1,71 @@
+{
+  "_help": "RE-Stack aggregator (app/web_stack_mcp.js). include=allowlist of ORIGINAL tool names ([]=all); exclude=denylist; enabled=false disables an upstream; prefix \"\" keeps original names and auto-names collisions as <label>__<tool>. After editing: docker restart re-stack then reconnect the MCP client.",
+  "server": { "name": "RE-Stack", "version": "1.0.0", "helperPrefix": "re_stack" },
+  "upstreams": [
+    {
+      "name": "rea",
+      "label": "rea",
+      "url": "http://127.0.0.1:4012/mcp",
+      "prefix": "",
+      "include": [],
+      "exclude": ["inspect_jeb_client", "open_jeb_project", "list_jeb_units", "decompile_jeb_item"],
+      "description": "REA / decompile orchestration + AI-assisted RE (229 tools)."
+    },
+    {
+      "name": "reverselab",
+      "label": "reverselab",
+      "url": "http://127.0.0.1:4018/mcp",
+      "prefix": "",
+      "include": [],
+      "exclude": ["run_sqlmap_request", "burp_status", "burp_launch", "http_probe"],
+      "description": "open-reverselab (109 tools): Ghidra headless, rizin/Cutter, DiE, PE patching, adb+frida, YARA/Sigma, CTF."
+    },
+    {
+      "name": "frida",
+      "label": "frida",
+      "url": "http://127.0.0.1:4017/mcp",
+      "prefix": "",
+      "include": [],
+      "exclude": [],
+      "description": "Frida runtime instrumentation (41 tools)."
+    },
+    {
+      "name": "x64dbg",
+      "label": "x64dbg",
+      "url": "http://127.0.0.1:4016/mcp",
+      "prefix": "",
+      "include": [],
+      "exclude": [],
+      "description": "x64dbg Windows EXE/DLL debugging (23 tools), via the in-container windows-bridge."
+    },
+    {
+      "name": "pycode",
+      "label": "pycode",
+      "url": "http://127.0.0.1:4013/mcp",
+      "prefix": "",
+      "include": [],
+      "exclude": [],
+      "description": "Python code intelligence / analysis automation (14 tools)."
+    },
+    {
+      "name": "hexstrike",
+      "label": "hexstrike",
+      "url": "http://127.0.0.1:4050/mcp",
+      "prefix": "",
+      "include": [
+        "create_file", "modify_file", "delete_file", "list_files", "install_python_package", "execute_python_script",
+        "volatility3_analyze", "binwalk_analyze", "ropgadget_search", "checksec_analyze",
+        "xxd_hexdump", "pwntools_exploit", "one_gadget_search", "libc_database_lookup", "angr_symbolic_execution",
+        "ropper_gadget_search", "pwninit_setup", "foremost_carving", "steghide_analysis", "exiftool_extract",
+        "server_health", "get_cache_stats", "clear_cache", "get_telemetry", "list_active_processes",
+        "get_process_status", "terminate_process", "pause_process", "resume_process", "get_process_dashboard",
+        "execute_command", "error_handling_statistics", "test_error_recovery", "format_tool_output_visual", "display_system_metrics",
+        "generate_payload", "john_crack", "hashcat_crack",
+        "ai_generate_payload", "ai_test_payload", "ai_generate_attack_suite", "advanced_payload_generation",
+        "create_vulnerability_report"
+      ],
+      "exclude": [],
+      "description": "HexStrike AI v6.0 offline offensive + forensic/system subset. Network-scanning tools are NOT exposed (edit include to add)."
+    }
+  ]
+}
